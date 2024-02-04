@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Steps } from "antd";
 import Basic from "./basic";
 import Location from "./Location";
@@ -57,6 +57,10 @@ function PropertiesForm() {
       content: <Contact {...commonPropsForSteps} />,
     },
   ];
+
+  useEffect(() => {
+    console.log(finalValues);
+  }, [finalValues]);
 
   return (
     <div>

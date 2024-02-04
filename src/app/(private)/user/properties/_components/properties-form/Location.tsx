@@ -1,23 +1,89 @@
 import React from "react";
 import { PropertiesFormStepProps } from ".";
-import { Button } from "antd";
+import { Button, Form, Input, InputNumber, Select } from "antd";
+import { cities } from "@/constants";
 
-function Location({ currentStep, setCurrentStep }: PropertiesFormStepProps) {
+function Location({
+  currentStep,
+  setCurrentStep,
+  finalValues,
+  setFinalValues,
+}: PropertiesFormStepProps) {
+  const onFinish = (values: any) => {
+    setFinalValues({ ...finalValues, location: values });
+    setCurrentStep(currentStep + 1);
+  };
+
+  //city, pincode, landmark, address
+
   return (
-    <div>
-      <span>Location</span>
-      <div className="flex  justify-end gap-5">
+    <Form layout="vertical" onFinish={onFinish}>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <Form.Item
+          name="City"
+          label="City"
+          rules={[
+            {
+              required: true,
+              message: "Please input city",
+            },
+          ]}
+        >
+          <Select options={cities} />
+        </Form.Item>
+
+        <Form.Item
+          name="Pincode"
+          label="Pincode"
+          rules={[
+            {
+              required: true,
+              message: "Please input Pincode",
+            },
+          ]}
+        >
+          <InputNumber className="w-full" placeholder="Pincode" />
+        </Form.Item>
+
+        <Form.Item
+          name="Landmark"
+          label="Landmark"
+          rules={[
+            {
+              required: true,
+              message: "Please input landmark",
+            },
+          ]}
+        >
+          <Input placeholder="Landmark" />
+        </Form.Item>
+
+        <Form.Item
+          name="address"
+          label="address"
+          rules={[
+            {
+              required: true,
+              message: "Please input address",
+            },
+          ]}
+          className=" col-span-1 lg:col-span-3"
+        >
+          <Input.TextArea rows={6} placeholder="Address" />
+        </Form.Item>
+      </div>
+      <div className="flex  justify-end gap-5 mt-7">
         <Button
           disabled={currentStep === 0}
           onClick={() => setCurrentStep(currentStep - 1)}
         >
           Back
         </Button>
-        <Button type="primary" onClick={() => setCurrentStep(currentStep + 1)}>
+        <Button htmlType="submit" type="primary">
           Next
         </Button>
       </div>
-    </div>
+    </Form>
   );
 }
 
