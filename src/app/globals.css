@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html , body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.cl-internal-b3fm6y{
+    display: none !important;
+}
+
+.cl-card{
+    border-radius: 4px !important;
+}
+
+input{
+    width: 100% !important;
+}
+
+.ant-form-item{
+    margin-bottom: 5px !important;
+}
