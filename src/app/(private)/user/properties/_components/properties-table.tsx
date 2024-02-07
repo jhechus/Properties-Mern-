@@ -1,7 +1,15 @@
+import prisma from "@/config/db";
 import React from "react";
+import ClientSidePropertiesTable from "./properties-table-clientside";
 
-function PropertiesTable() {
-  return <div> Table </div>;
+async function PropertiesTable() {
+  const properties = await prisma.property.findMany();
+
+  return (
+    <div>
+      <ClientSidePropertiesTable properties={properties} />
+    </div>
+  );
 }
 
 export default PropertiesTable;
