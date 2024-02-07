@@ -8,6 +8,7 @@ import React, { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Loader from "@/components/loader";
 import { useRouter } from "next/navigation";
+import { Router } from "next/router";
 
 // Define the user and admin menus
 const userMenu = [
@@ -66,7 +67,14 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
     return (
       <div className=" lg:px-20 px-5">
         <div className=" bg-primary p-3 flex justify-between items-center rounded-b ">
-          <h1 className="text-2xl text-white font-bold">Properties</h1>
+          <h1
+            className="text-2xl text-white font-bold cursor-pointer"
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            Properties
+          </h1>
 
           <div className=" bg-white py-2 px-5 rounded-sm flex items-center gap-5">
             <Dropdown

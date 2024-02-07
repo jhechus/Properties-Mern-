@@ -14,13 +14,15 @@ export interface PropertiesFormStepProps {
   setCurrentStep: (currentStep: number) => void;
   finalValues: any;
   setFinalValues: (finalValues: any) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 // PropertiesForm component
 function PropertiesForm() {
   // Initializing finalValues and currentStep state variables
   const [finalValues, setFinalValues] = React.useState({
-    Basic: {},
+    basic: {},
     location: {},
     amenities: {},
     media: {
@@ -30,12 +32,15 @@ function PropertiesForm() {
     contact: {},
   });
   const [currentStep = 0, setCurrentStep] = React.useState(0);
+  const [loading = false, setLoading] = React.useState(false);
 
   const commonPropsForSteps: any = {
     currentStep,
     setCurrentStep,
     finalValues,
     setFinalValues,
+    loading,
+    setLoading,
   };
 
   const steps = [

@@ -65,8 +65,8 @@ function Basic({
         </Form.Item>
 
         <Form.Item
-          name="Status"
-          label="Status"
+          name="status"
+          label="status"
           rules={[
             {
               required: true,

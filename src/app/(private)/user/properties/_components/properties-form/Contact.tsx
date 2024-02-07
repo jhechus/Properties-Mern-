@@ -2,24 +2,42 @@ import React from "react";
 import { PropertiesFormStepProps } from ".";
 import { Button, Form, Input, InputNumber, Select, message } from "antd";
 import { UploadFilestoFirebaseAndReturnUrls } from "@/helpers/upload-media";
+import { AddProperty } from "@/actions/properties";
+import { useRouter } from "next/navigation";
 
 function Contact({
   currentStep,
   setCurrentStep,
   finalValues,
   setFinalValues,
+  loading,
+  setLoading,
 }: PropertiesFormStepProps) {
+  const router = useRouter();
   const onFinish = async (values: any) => {
     try {
+      setLoading(true);
       const tempFinalValues = { ...finalValues, contact: values };
       const tempMedia = tempFinalValues.media;
       tempMedia.images = await UploadFilestoFirebaseAndReturnUrls(
         tempMedia.newlyUploadedFiles
       );
       tempFinalValues.media = tempMedia;
-      console.log(tempFinalValues);
+      const valuesAsPerDb = {
+        ...tempFinalValues.basic,
+        ...tempFinalValues.location,
+        ...tempFinalValues.amenities,
+        ...tempFinalValues.contact,
+        images: tempFinalValues.media.images,
+      };
+      const response = await AddProperty(valuesAsPerDb);
+      if (response.error) throw new Error(response.error);
+      message.success("Property added Successfully");
+      router.push("/user/properties");
     } catch (error: any) {
       message.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -96,8 +114,8 @@ function Contact({
         >
           Back
         </Button>
-        <Button type="primary" htmlType="submit">
-          Next
+        <Button type="primary" htmlType="submit" loading={loading}>
+          Save property
         </Button>
       </div>
     </Form>

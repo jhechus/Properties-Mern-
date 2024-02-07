@@ -49,8 +49,8 @@ function Amenities({
         </Form.Item>
 
         <Form.Item
-          name="Balcoies"
-          label="Balcoies"
+          name="balconies"
+          label="balconies"
           rules={[
             {
               required: true,
@@ -62,8 +62,8 @@ function Amenities({
         </Form.Item>
 
         <Form.Item
-          name="Parking"
-          label="Parking"
+          name="parking"
+          label="parking"
           rules={[
             {
               required: true,
@@ -75,8 +75,8 @@ function Amenities({
         </Form.Item>
 
         <Form.Item
-          name="Furnishing"
-          label="Furnishing"
+          name="furnishing"
+          label="furnishing"
           rules={[
             {
               required: true,
@@ -88,8 +88,8 @@ function Amenities({
         </Form.Item>
 
         <Form.Item
-          name="Floors"
-          label="Floors"
+          name="floors"
+          label="floors"
           rules={[
             {
               required: true,
@@ -114,8 +114,8 @@ function Amenities({
         </Form.Item>
 
         <Form.Item
-          name="Facing"
-          label="Facing"
+          name="facing"
+          label="facing"
           rules={[
             {
               required: true,
@@ -127,8 +127,8 @@ function Amenities({
         </Form.Item>
 
         <Form.Item
-          name="Age"
-          label="Age"
+          name="age"
+          label="age"
           rules={[
             {
               required: true,

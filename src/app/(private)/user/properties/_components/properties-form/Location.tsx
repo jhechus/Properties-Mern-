@@ -20,8 +20,8 @@ function Location({
     <Form layout="vertical" onFinish={onFinish}>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <Form.Item
-          name="City"
-          label="City"
+          name="city"
+          label="city"
           rules={[
             {
               required: true,
@@ -33,8 +33,8 @@ function Location({
         </Form.Item>
 
         <Form.Item
-          name="Pincode"
-          label="Pincode"
+          name="pincode"
+          label="pincode"
           rules={[
             {
               required: true,
@@ -46,8 +46,8 @@ function Location({
         </Form.Item>
 
         <Form.Item
-          name="Landmark"
-          label="Landmark"
+          name="landmark"
+          label="landmark"
           rules={[
             {
               required: true,
