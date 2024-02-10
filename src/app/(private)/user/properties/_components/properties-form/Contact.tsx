@@ -2,8 +2,8 @@ import React from "react";
 import { PropertiesFormStepProps } from ".";
 import { Button, Form, Input, InputNumber, Select, message } from "antd";
 import { UploadFilestoFirebaseAndReturnUrls } from "@/helpers/upload-media";
-import { AddProperty } from "@/actions/properties";
-import { useRouter } from "next/navigation";
+import { AddProperty, EditProperty } from "@/actions/properties";
+import { useRouter, useParams } from "next/navigation";
 
 function Contact({
   currentStep,
@@ -12,16 +12,23 @@ function Contact({
   setFinalValues,
   loading,
   setLoading,
+  isEdit = false,
 }: PropertiesFormStepProps) {
+  const { id }: any = useParams();
   const router = useRouter();
   const onFinish = async (values: any) => {
     try {
       setLoading(true);
       const tempFinalValues = { ...finalValues, contact: values };
+
+      // handle media upload
       const tempMedia = tempFinalValues.media;
-      tempMedia.images = await UploadFilestoFirebaseAndReturnUrls(
+      const newImagesURLS = await UploadFilestoFirebaseAndReturnUrls(
         tempMedia.newlyUploadedFiles
       );
+
+      tempMedia.images = [...tempMedia.images, ...newImagesURLS];
+
       tempFinalValues.media = tempMedia;
       const valuesAsPerDb = {
         ...tempFinalValues.basic,
@@ -30,9 +37,14 @@ function Contact({
         ...tempFinalValues.contact,
         images: tempFinalValues.media.images,
       };
-      const response = await AddProperty(valuesAsPerDb);
+      let response = null;
+      if (isEdit) {
+        response = await EditProperty(valuesAsPerDb, id);
+      } else {
+        response = await AddProperty(valuesAsPerDb);
+      }
       if (response.error) throw new Error(response.error);
-      message.success("Property added Successfully");
+      message.success(response.message);
       router.push("/user/properties");
     } catch (error: any) {
       message.error(error.message);
