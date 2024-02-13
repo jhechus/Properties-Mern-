@@ -15,6 +15,26 @@ async function PropertyPage({ params: { id } }: Props) {
     where: { id },
   })) as Property;
 
+  const getAttributeDetails = ({
+    name,
+    value,
+  }: {
+    name: string;
+    value: any;
+  }) => (
+    <div className=" flex justify-between">
+      <span className=" text-sm text-gray-500"> {name} </span>
+      <span className=" text-sm text-gray-900"> {value} </span>
+    </div>
+  );
+
+  const getSectionTitle = (title: string) => (
+    <div>
+      <h1 className=" text-xl font-bold text-black">{title}</h1>
+      <hr className=" border border-solid border-gray-300" />
+    </div>
+  );
+
   return (
     <div>
       <LinkButton title="Back to Properties" path="/" />
@@ -37,7 +57,59 @@ async function PropertyPage({ params: { id } }: Props) {
 
           <p className=" text-sm text-gray-500 mt-7">{property.description}</p>
         </div>
-        <div></div>
+        <div className=" border border-solid border-gray-300 rounded p-5">
+          <div className=" flex flex-col gap-1">
+            {getSectionTitle("Amenities")}
+            {getAttributeDetails({
+              name: "Bedrooms",
+              value: property.bedrooms,
+            })}
+            {getAttributeDetails({
+              name: "Bathrooms",
+              value: property.bathrooms,
+            })}
+            {getAttributeDetails({ name: "Parking", value: property.parking })}
+            {getAttributeDetails({ name: "Area", value: property.area })}
+            {getAttributeDetails({
+              name: "Furnishing",
+              value: property.furnishing,
+            })}
+            {getAttributeDetails({ name: "Floors", value: property.floors })}
+            {getAttributeDetails({ name: "Age", value: property.age })}
+          </div>
+
+          <div className=" flex flex-col gap-1 mt-7">
+            {getSectionTitle("Address")}
+            {getAttributeDetails({
+              name: "City",
+              value: property.city,
+            })}
+            {getAttributeDetails({
+              name: "Landmark",
+              value: property.landmark,
+            })}
+            {getAttributeDetails({ name: "ZipCode", value: property.pincode })}
+            {getAttributeDetails({ name: "Address", value: property.address })}
+          </div>
+
+          {property.ShowOwnerContact && (
+            <div className=" flex flex-col gap-1 mt-7">
+              {getSectionTitle("Owner Title")}
+              {getAttributeDetails({
+                name: "Owner name",
+                value: property.ownerName,
+              })}
+              {getAttributeDetails({
+                name: "Owner Email",
+                value: property.ownerEmail,
+              })}
+              {getAttributeDetails({
+                name: "Owner Phone",
+                value: property.ownerPhone,
+              })}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
