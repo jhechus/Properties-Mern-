@@ -3,6 +3,7 @@ import prisma from "@/config/db";
 import { Property } from "@prisma/client";
 import React from "react";
 import { Carousel } from "antd";
+import QueryModal from "../_components/query-modal";
 
 interface Props {
   params: {
@@ -54,6 +55,10 @@ async function PropertyPage({ params: { id } }: Props) {
               </div>
             ))}
           </Carousel>
+
+          <h1 className=" text-2xl font-bold text-gray-700 mt-7">
+            ${property.price} / {property.status}
+          </h1>
 
           <p className=" text-sm text-gray-500 mt-7">{property.description}</p>
         </div>
@@ -109,6 +114,8 @@ async function PropertyPage({ params: { id } }: Props) {
               })}
             </div>
           )}
+
+          <QueryModal propertyId={property.id} />
         </div>
       </div>
     </div>
