@@ -27,6 +27,7 @@ model User {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   Property    Property[]
+  Query       Query[]
 }
 
 // property model
@@ -60,4 +61,21 @@ model Property {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Query     Query[]
+}
+
+//query modal
+
+model Query {
+  id          String   @id @default(cuid()) @map("_id")
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  propertyId  String
+  property    Property @relation(fields: [propertyId], references: [id])
+  quoteAmount Float
+  name        String
+  phoneNumber String
+  message     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

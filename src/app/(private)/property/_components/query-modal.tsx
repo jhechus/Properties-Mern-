@@ -1,11 +1,25 @@
 "use client";
-import { Button, Form, Input, InputNumber, Modal } from "antd";
+import { AddQuery } from "@/actions/queries";
+import { Button, Form, Input, InputNumber, Modal, message } from "antd";
 import React from "react";
 
 function QueryModal({ propertyId }: { propertyId: string }) {
   const [showQueryModal, setShowQueryModal] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
-  const onFinish = async (values: any) => {};
+  const onFinish = async (values: any) => {
+    try {
+      setLoading(true);
+      const response = await AddQuery({ ...values, propertyId });
+      if (response.error) throw new Error(response.error);
+      message.success("query sent successfully");
+      setShowQueryModal(false);
+    } catch (error: any) {
+      message.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="mt-7">
@@ -52,8 +66,8 @@ function QueryModal({ propertyId }: { propertyId: string }) {
               <Input.TextArea rows={3} />
             </Form.Item>
             <Form.Item
-              name="phonenumber"
-              label="Phone number"
+              name="phoneNumber"
+              label="Phone Number"
               rules={[{ required: true, message: "Please enter your phone" }]}
             >
               <Input />
@@ -63,10 +77,11 @@ function QueryModal({ propertyId }: { propertyId: string }) {
               <Button
                 htmlType="button"
                 onClick={() => setShowQueryModal(false)}
+                disabled={loading}
               >
                 Cancel
               </Button>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" loading={loading}>
                 Send
               </Button>
             </div>
