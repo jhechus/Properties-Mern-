@@ -6,9 +6,13 @@ import { Button, Table, message } from "antd";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import React from "react";
+import PropertyQueries from "./property-queries";
 
 function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [showQueries, setShowQueries] = React.useState<boolean>(false);
+  const [selectedProperty, setSelectedProperty] =
+    React.useState<Property | null>(null);
   const router = useRouter();
 
   const onDelete = async (id: string) => {
@@ -61,6 +65,15 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
       render(value: any, record: Property) {
         return (
           <div className=" flex gap-5">
+            <Button
+              size="small"
+              onClick={() => {
+                setSelectedProperty(record);
+                setShowQueries(true);
+              }}
+            >
+              Queries
+            </Button>
             <Button size="small" onClick={() => onDelete(record.id)}>
               <i className="ri-delete-bin-line"></i>
             </Button>
@@ -96,6 +109,14 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
         loading={loading}
         rowKey="id"
       />
+
+      {showQueries && (
+        <PropertyQueries
+          selectedProperty={selectedProperty}
+          showQueriesModal={showQueries}
+          setShowQueriesModal={setShowQueries}
+        />
+      )}
     </div>
   );
 }

@@ -28,6 +28,10 @@ const userMenu = [
     name: "Subscriptions",
     path: `/user/subscription`,
   },
+  {
+    name: "Queries",
+    path: "/user/queries",
+  },
 ];
 
 const adminMenu = [
