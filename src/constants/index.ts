@@ -38,3 +38,50 @@ export const facingTypes = [
   { value: "north", label: "north" },
   { value: "south", label: "south" },
 ];
+
+export const subscriptionsPlans = [
+  {
+    name: "Basic",
+    price: 0,
+    propertiesLimit: 3,
+    imagesPerPropertyLimit: 3,
+    features: [
+      "Free for lifetime",
+      "Property Listing",
+      "Property Details",
+      "3 Images per Property",
+      "3 Properties Limit",
+      "Property Search",
+    ],
+  },
+  {
+    name: "Sandard",
+    price: 10,
+    propertiesLimit: 10,
+    imagesPerPropertyLimit: 5,
+    features: [
+      "Free for lifetime",
+      "Property Listing",
+      "Property Details",
+      "5 Images per Property",
+      "10 Properties Limit",
+      "Property Search",
+      "24/7 support on email",
+    ],
+  },
+  {
+    name: "Premium",
+    price: 25,
+    propertiesLimit: 100,
+    imagesPerPropertyLimit: 15,
+    features: [
+      "Free for lifetime",
+      "Property Listing",
+      "Property Details",
+      "15 Images per Property",
+      "100 Properties Limit",
+      "Property Search",
+      "24/7 support",
+    ],
+  },
+];
