@@ -9,6 +9,8 @@ html , body {
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 .cl-internal-b3fm6y{
