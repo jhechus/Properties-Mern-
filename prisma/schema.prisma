@@ -17,17 +17,29 @@ datasource db {
 // Define the user model
 
 model User {
-  id          String     @id @default(cuid()) @map("_id")
-  username    String
-  email       String     @unique
-  profilePic  String
-  isAdmin     Boolean    @default(false)
-  isActive    Boolean    @default(true)
-  clerkuserId String     @unique
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  Property    Property[]
-  Query       Query[]
+  id           String         @id @default(cuid()) @map("_id")
+  username     String
+  email        String         @unique
+  profilePic   String
+  isAdmin      Boolean        @default(false)
+  isActive     Boolean        @default(true)
+  clerkuserId  String         @unique
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Property     Property[]
+  Query        Query[]
+  Subscription Subscription[]
+}
+
+//Subscription model
+model Subscription {
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  plan      Json
+  paymentId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // property model
@@ -65,7 +77,6 @@ model Property {
 }
 
 //query modal
-
 model Query {
   id          String   @id @default(cuid()) @map("_id")
   userId      String

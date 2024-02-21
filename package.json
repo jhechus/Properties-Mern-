@@ -12,6 +12,7 @@
     "@clerk/nextjs": "^4.29.5",
     "@prisma/client": "^5.8.1",
     "@stripe/react-stripe-js": "^2.5.0",
+    "@stripe/stripe-js": "^3.0.3",
     "antd": "^5.13.2",
     "dayjs": "^1.11.10",
     "firebase": "^10.8.0",

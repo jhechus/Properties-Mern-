@@ -12,6 +12,13 @@ async function Account() {
     where: { userId: mongoUser?.id },
   });
 
+  const userSubscription: any = await prisma.subscription.findFirst({
+    where: { userId: mongoUser?.id },
+    orderBy: { createdAt: "desc" },
+  });
+
+  console.log(userSubscription);
+
   const getSectionTitle = (title: string) => {
     return (
       <div>
@@ -56,7 +63,21 @@ async function Account() {
       <div className=" flex flex-col gap-5 mt-10">
         {getSectionTitle("Subscription Details")}
 
-        <span>Not implement yet</span>
+        {userSubscription ? (
+          <div className="grid grid-cols-3 gap-5">
+            {getAttribute("Plan", userSubscription?.plan.name || "")}
+            {getAttribute("precio", `$ ${userSubscription?.plan.price}` || "")}
+            {getAttribute(
+              "purchased On",
+              dayjs(userSubscription?.createdAt).format(
+                "DD MMMM YYYY HH:mm A"
+              ) || ""
+            )}
+            {getAttribute("Payment Id", userSubscription?.paymentId || "")}
+          </div>
+        ) : (
+          <div> Ninguna subscripcion encontrada </div>
+        )}
       </div>
     </div>
   );
