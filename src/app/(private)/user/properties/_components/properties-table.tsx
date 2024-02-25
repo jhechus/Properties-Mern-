@@ -3,7 +3,7 @@ import React from "react";
 import ClientSidePropertiesTable from "./properties-table-clientside";
 import { GetCurrentUserFromMongoDB } from "@/actions/user";
 
-async function PropertiesTable() {
+async function PropertiesTable({ searchParams }: { searchParams: any }) {
   const user = await GetCurrentUserFromMongoDB();
 
   const properties = await prisma.property.findMany({
@@ -12,6 +12,7 @@ async function PropertiesTable() {
     },
     where: {
       userId: user?.data?.id,
+      ...searchParams,
     },
   });
 

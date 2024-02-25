@@ -3,8 +3,9 @@ import { Property } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 
-async function PropertiesData() {
+async function PropertiesData({ searchParams }: { searchParams: any }) {
   const properties: Property[] = await prisma.property.findMany({
+    where: searchParams,
     orderBy: {
       updatedAt: "desc",
     },
