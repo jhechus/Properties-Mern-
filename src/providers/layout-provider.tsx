@@ -64,6 +64,7 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   // Determine if the current route is a public route
   const isPublicRoute = ["sign-in", "sign-up"].includes(pathname.split("/")[1]);
+  const isAdminRoute = pathname.split("/")[1] === "admin";
 
   // Define the getHeader function
   const getHeader = () => {
@@ -106,6 +107,12 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
   const getContent = () => {
     if (isPublicRoute) return children;
     if (loading) return <Loader />;
+    if (isAdminRoute && !currentUserData?.isAdmin)
+      return (
+        <div className=" py-20 lg:px-20 px-5 text-center text-gray-600 text-sm">
+          No estas autorizado para ver esta pagina
+        </div>
+      );
     return <div className=" py-5 lg:px-20 px-5"> {children}</div>;
   };
 

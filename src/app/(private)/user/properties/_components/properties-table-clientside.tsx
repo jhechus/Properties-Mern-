@@ -8,7 +8,13 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import PropertyQueries from "./property-queries";
 
-function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
+function ClientSidePropertiesTable({
+  properties,
+  fromAdmin = false,
+}: {
+  properties: Property[];
+  fromAdmin?: boolean;
+}) {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [showQueries, setShowQueries] = React.useState<boolean>(false);
   const [selectedProperty, setSelectedProperty] =
@@ -28,9 +34,9 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
     }
   };
 
-  const columns = [
+  const columns: any = [
     {
-      title: "Name",
+      title: "property Name",
       dataIndex: "name",
       key: "name",
     },
@@ -100,6 +106,18 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
       },
     },
   ];
+
+  //if table is from admin show user column
+  if (fromAdmin) {
+    columns.unshift({
+      title: "User",
+      dataIndex: "user",
+      key: "user",
+      render(value: any, record: any) {
+        return <div className=" flex gap-5">{record.user?.username}</div>;
+      },
+    });
+  }
 
   return (
     <div className=" capitalize">
